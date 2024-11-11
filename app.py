@@ -10,7 +10,7 @@ app = dash.Dash(__name__)
 
 ## Foncton pour charger les IDs des clients depuis l'API Flask
 def get_client_ids():
-    response = requests.get('https://api-bank-7e148e253683.herokuapp.com/clients')
+    response = requests.get('https://api-banque-ebcad8aeb750.herokuapp.com/clients')
     if response.status_code == 200:     # cela signifie que la requête a été exécutée avec succès.
         return response.json()
     else:
@@ -78,7 +78,7 @@ app.layout = html.Div([
 )
 def update_client_info(client_id):
     if client_id is not None:
-        response = requests.get(f'https://api-bank-7e148e253683.herokuapp.com/client/{client_id}')
+        response = requests.get(f'https://api-banque-ebcad8aeb750.herokuapp.com/{client_id}')
         if response.status_code == 200:
             client_info = response.json()[0]
             return html.Div([
@@ -125,7 +125,7 @@ def update_client_info(client_id):
 )
 def update_client_predict(client_id, n_clicks):
     if client_id and n_clicks > 0:
-        response = requests.get(f'https://api-bank-7e148e253683.herokuapp.com/predict/{client_id}')
+        response = requests.get(f'https://api-banque-ebcad8aeb750.herokuapp.com/predict/{client_id}')
         if response.status_code == 200:
             client_predict = response.json()
             # Vérification de la probabilité et génération de la réponse
@@ -153,14 +153,14 @@ def update_client_predict(client_id, n_clicks):
 def update_local_interpretation(client_id, n_clicks):
     if n_clicks > 0 :
         # Ouvre le graphique
-       return dcc.Location(href=f'https://api-bank-7e148e253683.herokuapp.com/interpretation/local/{client_id}', id='inter-loc')   
+       return dcc.Location(href=f'https://api-banque-ebcad8aeb750.herokuapp.com/interpretation/local/{client_id}', id='inter-loc')   
     return dash.no_update
 
 
 ## Interpretation Globale du modèle
 # Fonction pour charger l'image depuis l'API
 def load_image_globale():
-    response = requests.get('https://api-bank-7e148e253683.herokuapp.com/interpretation/global')
+    response = requests.get('https://api-banque-ebcad8aeb750.herokuapp.com/interpretation/global')
     if response.status_code == 200:
         return 'data:image/png;base64,' + base64.b64encode(response.content).decode('utf-8')
     return None
@@ -186,7 +186,7 @@ def update_global_interpretation(n_clicks):
 def analysis_drift(n_clicks):
     if n_clicks > 0:
         # Ouvre l'URL dans un nouvel onglet
-        return html.A('Ouvrir l\'analyse de drift dans un nouveau onglet', href='https://api-bank-7e148e253683.herokuapp.com/drift', target="_blank")
+        return html.A('Ouvrir l\'analyse de drift dans un nouveau onglet', href='https://api-banque-ebcad8aeb750.herokuapp.com/drift', target="_blank")
     return dash.no_update
 
 # Expose the server variable for Gunicorn
