@@ -78,7 +78,7 @@ app.layout = html.Div([
 )
 def update_client_info(client_id):
     if client_id is not None:
-        response = requests.get(f'https://api-banque-ebcad8aeb750.herokuapp.com/client/{client_id}')
+        response = requests.get(f'http://127.0.0.1:5000/client/{client_id}')
         if response.status_code == 200:
             client_info = response.json()[0]
             return html.Div([
@@ -115,6 +115,7 @@ def update_client_info(client_id):
                 html.H3(f"Aucun client trouvé avec l'ID: {client_id}")
             ])
     return None
+
  
 
 ## Mise à jour de la prédiction en fonction de son ID
